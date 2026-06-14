@@ -1,0 +1,1713 @@
+{
+  "info": {
+    "name": "Coffee Shop POS",
+    "_postman_id": "4329f0f4-9536-4eda-89b3-aa3fc8ddbf57",
+    "description": "API skeleton generated from API_CONTRACT.md. Money values are integers in sen (1 Rupiah = 100 sen).\n\nEnvironments (set the `base_url` collection variable accordingly):\n- Local: http://localhost:8080\n- Production: https://yourdomain.com\n\nAfter login, paste the JWT into the `token` collection variable; Bearer auth is applied at the collection level to all requests except Login and the Midtrans webhook.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "auth",
+                "login"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"cashier1@coffee.id\",\n  \"password\": \"secret123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/me",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "List Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/categories?page=1&per_page=20",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "categories"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "20"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/categories/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "categories",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "categories"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Pastry\",\n  \"description\": \"Roti & kue\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/categories/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "categories",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Pastry & Cake\",\n  \"description\": \"Roti, kue, dessert\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/categories/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "categories",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "List Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/products?page=1&per_page=20&search=&category_id=&is_active=",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "20"
+                },
+                {
+                  "key": "search",
+                  "value": ""
+                },
+                {
+                  "key": "category_id",
+                  "value": ""
+                },
+                {
+                  "key": "is_active",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/products/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "products",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/products",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "products"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"category_id\": \"c-001\",\n  \"name\": \"Caffe Latte\",\n  \"description\": \"Espresso + steamed milk\",\n  \"price\": 2800000,\n  \"stock\": 50,\n  \"is_active\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/products/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "products",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"category_id\": \"c-001\",\n  \"name\": \"Caffe Latte\",\n  \"description\": \"Espresso + steamed milk\",\n  \"price\": 2800000,\n  \"stock\": 50,\n  \"is_active\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Set Product Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/products/:id/status",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "products",
+                ":id",
+                "status"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"is_active\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload Product Photo",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/products/:id/photo",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "products",
+                ":id",
+                "photo"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "photo",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/products/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "products",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Stock",
+      "item": [
+        {
+          "name": "List Stock Movements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/products/:id/stock-movements?page=1&per_page=20&type=",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "products",
+                ":id",
+                "stock-movements"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "20"
+                },
+                {
+                  "key": "type",
+                  "value": ""
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Stock Movement",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/products/:id/stock-movements",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "products",
+                ":id",
+                "stock-movements"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"in\",\n  \"quantity\": 20,\n  \"note\": \"Restock supplier A\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tables",
+      "item": [
+        {
+          "name": "List Tables",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/tables?status=",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "tables"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Table",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/tables",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "tables"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Meja 13\",\n  \"capacity\": 2,\n  \"status\": \"available\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Table",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/tables/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "tables",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Meja 13\",\n  \"capacity\": 2,\n  \"status\": \"available\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Set Table Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/tables/:id/status",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "tables",
+                ":id",
+                "status"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"inactive\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Table",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/tables/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "tables",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Cashiers",
+      "item": [
+        {
+          "name": "List Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/users?role=&is_active=&search=",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "role",
+                  "value": ""
+                },
+                {
+                  "key": "is_active",
+                  "value": ""
+                },
+                {
+                  "key": "search",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Cashier",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "users"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sari\",\n  \"email\": \"cashier2@coffee.id\",\n  \"password\": \"secret123\",\n  \"role\": \"cashier\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/users/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "users",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sari\",\n  \"email\": \"cashier2@coffee.id\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Set User Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/users/:id/status",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "users",
+                ":id",
+                "status"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"is_active\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/users/:id/password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "users",
+                ":id",
+                "password"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"new_password\": \"newSecret456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Promos",
+      "item": [
+        {
+          "name": "List Promos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/promos?is_active=&type=",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "promos"
+              ],
+              "query": [
+                {
+                  "key": "is_active",
+                  "value": ""
+                },
+                {
+                  "key": "type",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Promo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/promos",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "promos"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Diskon Pagi 10%\",\n  \"type\": \"percentage\",\n  \"value\": 10,\n  \"min_purchase\": 5000000,\n  \"start_date\": \"2026-06-01T00:00:00Z\",\n  \"end_date\": \"2026-06-30T23:59:59Z\",\n  \"is_active\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Promo",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/promos/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "promos",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Diskon Pagi 10%\",\n  \"type\": \"percentage\",\n  \"value\": 10,\n  \"min_purchase\": 5000000,\n  \"start_date\": \"2026-06-01T00:00:00Z\",\n  \"end_date\": \"2026-06-30T23:59:59Z\",\n  \"is_active\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Set Promo Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/promos/:id/status",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "promos",
+                ":id",
+                "status"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"is_active\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Promo",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/promos/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "promos",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "Revenue Report",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/reports/revenue?period=daily&start_date=2026-06-01&end_date=2026-06-14",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "reports",
+                "revenue"
+              ],
+              "query": [
+                {
+                  "key": "period",
+                  "value": "daily"
+                },
+                {
+                  "key": "start_date",
+                  "value": "2026-06-01"
+                },
+                {
+                  "key": "end_date",
+                  "value": "2026-06-14"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Best Sellers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/reports/best-sellers?start_date=2026-06-01&end_date=2026-06-14&limit=10",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "reports",
+                "best-sellers"
+              ],
+              "query": [
+                {
+                  "key": "start_date",
+                  "value": "2026-06-01"
+                },
+                {
+                  "key": "end_date",
+                  "value": "2026-06-14"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cashier Performance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/reports/cashier-performance?start_date=2026-06-01&end_date=2026-06-14",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "reports",
+                "cashier-performance"
+              ],
+              "query": [
+                {
+                  "key": "start_date",
+                  "value": "2026-06-01"
+                },
+                {
+                  "key": "end_date",
+                  "value": "2026-06-14"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Export Transactions (CSV)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/reports/transactions/export?start_date=2026-06-01&end_date=2026-06-14",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "reports",
+                "transactions",
+                "export"
+              ],
+              "query": [
+                {
+                  "key": "start_date",
+                  "value": "2026-06-01"
+                },
+                {
+                  "key": "end_date",
+                  "value": "2026-06-14"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Shifts",
+      "item": [
+        {
+          "name": "Open Shift",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/cashier/shifts/open",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "cashier",
+                "shifts",
+                "open"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"opening_balance\": 50000000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Current Shift",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/cashier/shifts/current",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "cashier",
+                "shifts",
+                "current"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Close Shift",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/cashier/shifts/:id/close",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "cashier",
+                "shifts",
+                ":id",
+                "close"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"closing_balance\": 58400000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Shift (Cashier)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/cashier/shifts/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "cashier",
+                "shifts",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Shift (Owner audit)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/owner/shifts/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "owner",
+                "shifts",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "List Orders (today)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/cashier/orders?status=&date=",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "cashier",
+                "orders"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": ""
+                },
+                {
+                  "key": "date",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/cashier/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "cashier",
+                "orders"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"table_id\": \"t-01\",\n  \"items\": [\n    {\n      \"product_id\": \"p-101\",\n      \"quantity\": 2\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Order",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/cashier/orders/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "cashier",
+                "orders",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Apply Promo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/cashier/orders/:id/apply-promo",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "cashier",
+                "orders",
+                ":id",
+                "apply-promo"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"promo_id\": \"promo-01\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remove Promo",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/cashier/orders/:id/promo",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "cashier",
+                "orders",
+                ":id",
+                "promo"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Order",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/cashier/orders/:id/cancel",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "cashier",
+                "orders",
+                ":id",
+                "cancel"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Checkout (Midtrans Snap)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/cashier/orders/:id/checkout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "cashier",
+                "orders",
+                ":id",
+                "checkout"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Payment Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/cashier/orders/:id/payment",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "cashier",
+                "orders",
+                ":id",
+                "payment"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Midtrans Webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/payments/midtrans/webhook",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api/v1",
+                "payments",
+                "midtrans",
+                "webhook"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_id\": \"TRX-20260614-0001\",\n  \"transaction_status\": \"settlement\",\n  \"payment_type\": \"qris\",\n  \"gross_amount\": \"50400.00\",\n  \"fraud_status\": \"accept\",\n  \"signature_key\": \"a1b2c3...\",\n  \"status_code\": \"200\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

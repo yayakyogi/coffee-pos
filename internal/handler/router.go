@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+
+	"github.com/yayakyogi/coffee-pos/pkg/response"
 )
 
 // NewRouter membuat dan mengonfigurasi Gin engine: mode dipilih berdasarkan
@@ -22,10 +22,7 @@ func NewRouter(appEnv string) *gin.Engine {
 	v1 := router.Group("/api/v1")
 	{
 		v1.GET("/health", func(c *gin.Context) {
-			c.JSON(http.StatusOK, gin.H{
-				"success": true,
-				"message": "server is running",
-			})
+			response.OK(c, "server is running", nil)
 		})
 	}
 

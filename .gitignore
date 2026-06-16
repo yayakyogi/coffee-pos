@@ -2,3 +2,6 @@
 vendor/
 *.exe
 tmp/
+
+# Compiled binary (go build output)
+/api

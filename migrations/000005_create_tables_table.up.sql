@@ -1,13 +1,10 @@
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS `tables` (
     id VARCHAR(36) NOT NULL,
     name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    role ENUM('owner','cashier') NOT NULL,
-    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    capacity INT NOT NULL DEFAULT 4,
+    status ENUM('available','occupied','reserved') NOT NULL DEFAULT 'available',
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted_at DATETIME NULL DEFAULT NULL,
-    PRIMARY KEY (id),
-    UNIQUE KEY idx_users_email (email)
+    PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
